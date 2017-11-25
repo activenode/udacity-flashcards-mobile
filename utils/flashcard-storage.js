@@ -6,6 +6,11 @@ import uuid from 'uuid';
 
 const FLASHCARD_STORAGE_KEY = 'FLASHCARD_STORAGE_KEY';
 
+const uniqueId = () => {
+  const idParts = [new Date().getTime(), uuid(), (Math.random() * 10000).toFixed(4)];
+  return idParts.join('-');
+}
+
 const logErrorAndReturn = returnValue => {
   return error => {
     console.warn(error);
@@ -36,7 +41,7 @@ export function getDecks() {
  * @async
  * @return {Promise<Object|Array>}
  */
-export function getDeck({id, onNotFoundReturnDecks}) {
+export function getDeck({id}) {
   return getDecks()
     .then(decks => {
       const deck = decks.find(({id: deckId}) => deckId === id);
@@ -44,32 +49,24 @@ export function getDeck({id, onNotFoundReturnDecks}) {
         return deck;
       }
 
-      if (!onNotFoundReturnDecks) {
-        throw Error(`Could not find the requested deck with id=${id}`);
-      }
-
-      return decks;
+      throw Error(`Could not find the requested deck with id=${id}`);
     })
     .catch(logErrorAndReturn(null));
 }
 
 /**
- * Returns a promise that will resolve when the deck is added
+ * Returns a promise that will resolve with the id when the deck is added
  * @async
- * @return {Promise}
+ * @return {Promise<String>}
  */
 export function addDeck(title) {
-  const id = uuid();
-  return getDeck({id, onNotFoundReturnDecks: true})
+  const id = uniqueId();
+  return getDecks()
     .then(decks => {
-      if (!Array.isArray(decks)) {
-        // this means that the id is already in place! try again!
-        return addDeck(title);
-      }
-
       const newDecksData = decks.concat([{id, title}]);
       return AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(newDecksData));
-    });
+    })
+    .then(() => id);
 }
 
 /**
@@ -87,4 +84,59 @@ export function removeDeck({id}) {
 
 export function removeAllDecks() {
   return AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
+}
+
+/**
+ * Adds a card if the deck exists and resolves
+ * @param {Object} - deckId and card object (card = {question, answer})
+ * @async
+ * @return {Promise}
+ */
+export function addCardToDeck({deckId, card}) {
+  return getDecks()
+    .then(decks => {
+      const newDecksData = decks.map(deck => {
+        if (deck.id === deckId) {
+          const { cards } = deck;
+          // add the card to this deck
+          return {
+            ...deck,
+            cards: (cards || []).concat({
+              ...card,
+              id: uniqueId()
+            })
+          };
+        }
+
+        return {...deck};
+      });
+
+      return AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(newDecksData));
+    })
+}
+
+/**
+ * Removes a card if the deck and card exist and resolves
+ * @param {Object<{deckId: String, cardId: String}>} - deckId and cardId
+ * @async
+ * @return {Promise}
+ */
+export function removeCardFromDeck({deckId, cardId}) {
+  return getDecks()
+    .then(decks => {
+      const newDecksData = decks.map(deck => {
+        if (deck.id === deckId && Array.isArray(deck.cards)) {
+          const { cards } = deck;
+
+          return {
+            ...deck,
+            cards: deck.cards.filter(({id}) => cardId !== id)
+          };
+        }
+
+        return {...deck};
+      });
+
+      return AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(newDecksData));
+    })
 }
