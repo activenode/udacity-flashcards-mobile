@@ -1,12 +1,12 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { View, KeyboardAvoidingView, Platform } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import DeckList from './DeckList';
 import DeckAddNew from './DeckAddNew';
 import { coolAction , greyWhite} from '../utils/colors';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const MainTabView = TabNavigator({
+const Tabs = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
@@ -45,8 +45,20 @@ const MainTabView = TabNavigator({
   }
 });
 
-export default function StartView(props={}) {
-  return (<KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
-    <MainTabView {...props} />
-  </KeyboardAvoidingView>);
+export default class StartView extends React.Component {
+  componentDidMount() {
+    const { screenProps, navigation } = this.props;
+  }
+
+  goToDeckDetails = deckId => {
+    const { navigation } = this.props;
+    navigation.navigate('DeckDetails', {id: deckId});
+  }
+
+  render() {
+    const { screenProps } = this.props;
+    return (<KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
+      <Tabs screenProps={{...screenProps, goToDeckDetails: this.goToDeckDetails}} />
+    </KeyboardAvoidingView>);
+  }
 }

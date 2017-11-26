@@ -13,8 +13,16 @@ class DeckAddNew extends React.Component {
 
   saveDeck = () => {
     const { screenProps: { goToDeckDetails }, navigation } = this.props;
-    navigation.navigate('DeckList');
-    goToDeckDetails('hey');
+    const { deckTitle } = this.state;
+
+    // reset the state
+    this.setState({deckTitle: ''});
+
+    // first go back to overview
+    navigation.dispatch(NavigationActions.back({ key: 'DeckAddNew' }));
+
+    // then make sure to navigate to the details view
+    goToDeckDetails('oje');
   }
 
   render() {
