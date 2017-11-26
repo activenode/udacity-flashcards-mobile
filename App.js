@@ -1,23 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { TabNavigator } from 'react-navigation';
+import StartView from './components/StartView';
+import StatusBar from './components/StatusBar';
+
 
 export default class App extends React.Component {
+  state = {
+
+  }
+
+  componentDidMount() {
+
+  }
+
+  onAddedDeck = () => {
+    alert('foobar.onAddedDeck');
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={{flex: 1}}>
+        <StatusBar />
+        <StartView screenProps={{ onAddedDeck: this.onAddedDeck }} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
