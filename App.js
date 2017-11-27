@@ -38,16 +38,18 @@ export default class App extends React.Component {
     ...mockState
   }
 
-  componentDidMount() {
+  saveDeckAsync = (title) => {
+    const uuid = Math.random() * 1000000 + '___';
+    return new Promise((resolve, reject) => {
+      this.setState(state => {
+        return {
+          ...state,
+          decks: state.decks.concat([ {id: uuid, title} ])
+        }
+      });
 
-  }
-
-  onAddedDeck = () => {
-    alert('foobar.onAddedDeck');
-  }
-
-  goToDeckDetails = deckId => {
-    alert('yeah go there ' + deckId);
+      resolve(uuid);
+    });
   }
 
   removeDeck = deckId => {
@@ -72,8 +74,7 @@ export default class App extends React.Component {
 
   render() {
     const {
-      onAddedDeck,
-      goToDeckDetails,
+      saveDeckAsync,
       removeDeck,
       state: { decks }
     } = this;
@@ -82,8 +83,7 @@ export default class App extends React.Component {
       <View style={{flex: 1}}>
         <StatusBar />
         <MainView screenProps={{
-           onAddedDeck,
-           goToDeckDetails,
+           saveDeckAsync,
            removeDeck,
            decks
         }} />

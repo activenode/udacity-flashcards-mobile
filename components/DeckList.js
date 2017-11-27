@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from 'react-native';
-import {blackyGrey, greyWhite, androidGrey} from '../utils/colors';
+import { blackyGrey, greyWhite, androidGrey } from '../utils/colors';
 import Button, { BTN_DANGER } from './Button';
 import boxShadows from '../utils/box-shadows';
 import iosElse from '../utils/ios-else';
@@ -14,39 +14,44 @@ export default function DeckList({
   }
 }) {
   return (
-  <FlatList
-    data={decks.map(deck => {
-      return {key: deck.id, ...deck};
-    })}
-    renderItem={({item}) => {
-      const { cards, title, id } = item;
-      const cardsCount = Array.isArray(cards) ? cards.length : 0;
+  <View style={styles.container}>
+    <FlatList
+      data={decks.map(deck => {
+        return {key: deck.id, ...deck};
+      })}
+      renderItem={({item}) => {
+        const { cards, title, id } = item;
+        const cardsCount = Array.isArray(cards) ? cards.length : 0;
 
-      return (
-        <View style={styles.item}>
-          <Text style={[styles.itemText, styles.itemHeadline]}>{title}</Text>
-          <Text style={[styles.itemText, styles.itemCardsCount]}>
-            {cardsCount} {cardsCount === 1 ? 'Card' : 'Cards'}
-          </Text>
-          <View style={styles.btnContainer}>
-            <Button
-              text='DELETE'
-              type={BTN_DANGER}
-              roundedBorders={{bottomLeft: true}}
-              onPress={() => removeDeck(id)}
-              />
-            <Button
-              flex={2.75}
-              text='OPEN'
-              roundedBorders={{bottomRight: true}}
-              onPress={() => goToDeckDetails(id)} />
+        return (
+          <View style={styles.item}>
+            <Text style={[styles.itemText, styles.itemHeadline]}>{title}</Text>
+            <Text style={[styles.itemText, styles.itemCardsCount]}>
+              {cardsCount} {cardsCount === 1 ? 'Card' : 'Cards'}
+            </Text>
+            <View style={styles.btnContainer}>
+              <Button
+                text='DELETE'
+                type={BTN_DANGER}
+                roundedBorders={{bottomLeft: true}}
+                onPress={() => removeDeck(id)}
+                />
+              <Button
+                flex={2.75}
+                text='OPEN'
+                roundedBorders={{bottomRight: true}}
+                onPress={() => goToDeckDetails(id)} />
+            </View>
           </View>
-        </View>
-      )
-    }} />);
+        )
+      }} />
+    </View>);
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 20
+  },
   item: {
     flex: 1,
     backgroundColor: iosElse(greyWhite, androidGrey),

@@ -46,13 +46,18 @@ const Tabs = TabNavigator({
 });
 
 export default class StartView extends React.Component {
-  componentDidMount() {
-    const { screenProps, navigation } = this.props;
-  }
+  goToDeckDetails = (id) => {
+    const { decks } = this.props.screenProps;
+    const deck = decks.find(({id: deckId}) => deckId === id);
 
-  goToDeckDetails = deckId => {
-    const { navigation } = this.props;
-    navigation.navigate('DeckDetails', {id: deckId});
+    if (!deck) {
+      throw Error(`Cannot find deck with id = ${id}`);
+    }
+
+    this.props.navigation.navigate(
+      'DeckDetails',
+      {id: deck.id, title: deck.title}
+    );
   }
 
   render() {
