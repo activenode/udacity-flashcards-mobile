@@ -1,11 +1,12 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {coolAction, coolDanger, transparentWhite} from '../utils/colors';
+import {coolAction, coolDanger, coolAlternate, transparentWhite, semiTransparentWhite} from '../utils/colors';
 import iosElse from '../utils/ios-else';
 import boxShadows from '../utils/box-shadows';
 
 export const BTN_DEFAULT = 'default';
 export const BTN_DANGER = 'danger';
+export const BTN_ALTERNATE = 'alternate';
 
 export default function Button({
   text,
@@ -25,10 +26,17 @@ export default function Button({
     []
   );
 
-  const extraStyles = type === BTN_DANGER ? {
-    btn: styles.btnDanger,
-    text: styles.dangerText
-  } : {};
+  let extraStyles;
+  switch (type) {
+    case BTN_DANGER:
+      extraStyles = { btn: styles.btnDanger, text: styles.dangerText };
+      break;
+    case BTN_ALTERNATE:
+      extraStyles = { btn: styles.btnAlternate, text: styles.altText };
+      break;
+    default:
+      extraStyles = {};
+  }
 
   if (flex) {
     extraStyles.btn = {
@@ -59,17 +67,24 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRightWidth: 1,
     borderLeftWidth: 1,
-    borderColor: iosElse(coolAction, 'white'),
+    borderColor: iosElse(coolAction, semiTransparentWhite),
     backgroundColor: iosElse(transparentWhite, coolAction),
     justifyContent: 'center',
     ...boxShadows
   },
   btnDanger: {
     backgroundColor: iosElse(transparentWhite, coolDanger),
-    borderColor: iosElse(coolDanger, 'white')
+    borderColor: iosElse(coolDanger, semiTransparentWhite)
+  },
+  btnAlternate: {
+    backgroundColor: iosElse(transparentWhite, coolAlternate),
+    borderColor: iosElse(coolAlternate, semiTransparentWhite)
   },
   dangerText: {
     color: iosElse(coolDanger, 'white')
+  },
+  altText: {
+    color: iosElse(coolAlternate, 'white')
   },
   topLeft: {
     borderTopLeftRadius: borderRadius

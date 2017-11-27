@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Button from './Button';
+import Button, { BTN_ALTERNATE } from './Button';
+import styles from '../utils/common-styles';
 
 
 class DeckDetails extends React.Component {
@@ -15,11 +16,13 @@ class DeckDetails extends React.Component {
     const { id } = navigation.state.params;
     const { screenProps: { decks } } = this.props;
     const deck = decks.find(({id: deckId}) => id === deckId);
+    const cardsCount = Array.isArray(deck.cards) ? deck.cards.length : 0;
 
     //return <TouchableOpacity onPress={() => navigation.navigate('DeckQuiz')}><Text>hi touch me</Text></TouchableOpacity>;
     return (
-      <View style={styles.container}>
+      <View style={styles.verticalCenteredPaddContainer}>
         <Text style={styles.headline}>{deck.title}</Text>
+        <Text style={[styles.text, styles.centerText, { paddingTop: 4, paddingBottom: 8 }]}>{cardsCount} {cardsCount === 1 ? 'Card' : 'Cards'}</Text>
         <View style={styles.btnContainer}>
           <Button
               text='Add Card'
@@ -30,6 +33,7 @@ class DeckDetails extends React.Component {
         <View style={styles.btnContainer}>
           <Button
               text='Start Quiz'
+              type={BTN_ALTERNATE}
               onPress={ () => navigation.navigate('DeckQuiz') }
               roundedBorders={{ topLeft: true, topRight: true, bottomRight: true, bottomLeft: true }}
               />
@@ -39,22 +43,5 @@ class DeckDetails extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 40,
-    justifyContent: 'center'
-  },
-  btnContainer: {
-    height: 52,
-    marginTop: 15
-  },
-  headline: {
-    fontSize: 32,
-    fontWeight: '600',
-    textAlign: 'center',
-    paddingBottom: 50
-  }
-});
 
 export default DeckDetails;

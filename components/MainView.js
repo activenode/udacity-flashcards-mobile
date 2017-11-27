@@ -11,7 +11,7 @@ const MainView = StackNavigator({
     screen: StartView,
     navigationOptions: {
       header: null
-    },
+    }
   },
   DeckDetails: {
     screen: DeckDetails

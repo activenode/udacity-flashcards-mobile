@@ -1,9 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Button from './Button';
-import boxShadows from '../utils/box-shadows';
-import iosElse from '../utils/ios-else';
 import { NavigationActions } from 'react-navigation';
+import styles from '../utils/common-styles';
 
 
 class DeckAddNew extends React.Component {
@@ -27,7 +26,7 @@ class DeckAddNew extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.verticalCenteredPaddContainer}>
         <Text style={styles.headline}>Enter the name of your new Deck:</Text>
         <TextInput
             style={styles.input}
@@ -47,34 +46,5 @@ class DeckAddNew extends React.Component {
       );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 40,
-    justifyContent: 'center'
-  },
-  btnContainer: {
-    height: 52,
-    marginTop: 15
-  },
-  headline: {
-    fontSize: 32,
-    fontWeight: '600',
-    textAlign: 'center'
-  },
-  input: {
-    marginTop: 20,
-    borderRadius: iosElse(16, 0),
-    borderWidth: iosElse(2, 0),
-    borderColor: 'blue',
-    paddingLeft: 20,
-    paddingRight: 20,
-    height: 52,
-    textAlign: 'center',
-    fontSize: iosElse(14, 16),
-    ...boxShadows
-  }
-});
 
 export default DeckAddNew;
