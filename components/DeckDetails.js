@@ -26,17 +26,17 @@ class DeckDetails extends React.Component {
         <View style={styles.btnContainer}>
           <Button
               text='Add Card'
-              onPress={ () => navigation.navigate('DeckAddCard') }
+              onPress={ () => navigation.navigate('DeckAddCard', { deckTitle: deck.title, deckId: deck.id }) }
               roundedBorders={{ topLeft: true, topRight: true, bottomRight: true, bottomLeft: true }}
               />
         </View>
         <View style={styles.btnContainer}>
-          <Button
+          { (cardsCount > 0) && <Button
               text='Start Quiz'
               type={BTN_ALTERNATE}
               onPress={ () => navigation.navigate('DeckQuiz') }
               roundedBorders={{ topLeft: true, topRight: true, bottomRight: true, bottomLeft: true }}
-              />
+              />}
         </View>
       </View>
     )

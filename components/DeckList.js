@@ -31,7 +31,7 @@ export default function DeckList({
             </Text>
             <View style={styles.btnContainer}>
               <Button
-                text='DELETE'
+                icon={iosElse('ios-trash-outline', 'md-trash')}
                 type={BTN_DANGER}
                 roundedBorders={{bottomLeft: true}}
                 onPress={() => removeDeck(id)}

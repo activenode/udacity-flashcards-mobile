@@ -4,9 +4,9 @@ import Button from './Button';
 import { NavigationActions } from 'react-navigation';
 import styles from '../utils/common-styles';
 
-class DeckAddNew extends React.Component {
+class DeckAddCard extends React.Component {
   static navigationOptions = ({navigation}) => {
-    return 'Add a new Card';
+    return { title: `Add a Card to ${navigation.state.params.deckTitle}` };
   }
 
   state = {
@@ -15,31 +15,51 @@ class DeckAddNew extends React.Component {
   }
 
   saveCard = () => {
-    const { screenProps: { saveCardAsync }, navigation } = this.props;
+    const { screenProps: { saveCardAsync, onError }, navigation } = this.props;
     const { cardQuestion, cardAnswer } = this.state;
+    const { deckId } = navigation.state.params;
 
     // reset the state
     this.setState({cardQuestion: '', cardAnswer: ''});
 
     //then make sure to save it async and go to detail view again
-    saveCardAsync({cardQuestion, cardAnswer}).then(() => {
-      navigation.dispatch(NavigationActions.back({ key: 'DeckAddCard' }))
-    });
+    saveCardAsync({deckId, cardQuestion, cardAnswer}).then(() => {
+      navigation.dispatch(NavigationActions.back({ }))
+    }).catch(onError);
   }
 
   render() {
     return (
       <View style={styles.verticalCenteredPaddContainer}>
-        <Text style={styles.headline}>Question of the Card:</Text>
+        <Text style={styles.headline2}>Question of the Card:</Text>
         <TextInput
             style={styles.input}
             onChangeText={cardQuestion => this.setState({cardQuestion})}
             value={this.state.cardQuestion}
+            placeholder='Appears on the front of your card...'
           />
+        <Text style={[styles.headline2, {marginTop: 20}]}>The answer:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={cardAnswer => this.setState({cardAnswer})}
+          value={this.state.cardAnswer}
+          placeholder='The backside of the card...'
+        />
+
+        <View style={[styles.btnContainer, {marginTop: 40}]}>
+          {!!(this.state.cardQuestion && this.state.cardAnswer) &&
+            <Button
+              text='Save this Card'
+              onPress={this.saveCard}
+              roundedBorders={{
+                topLeft: true, topRight: true, bottomRight: true, bottomLeft: true
+              }}
+              />}
         </View>
       </View>
       );
   }
 }
 
-export default DeckAddNew;
+
+export default DeckAddCard;

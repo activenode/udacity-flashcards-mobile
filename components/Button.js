@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {coolAction, coolDanger, coolAlternate, transparentWhite, semiTransparentWhite} from '../utils/colors';
 import iosElse from '../utils/ios-else';
 import boxShadows from '../utils/box-shadows';
+import { Ionicons } from '@expo/vector-icons';
 
 export const BTN_DEFAULT = 'default';
 export const BTN_DANGER = 'danger';
@@ -13,6 +14,7 @@ export default function Button({
   onPress,
   roundedBorders = {},
   flex,
+  icon,
   type = BTN_DEFAULT
 }) {
   const applyBorderStyles = iosElse(
@@ -26,16 +28,20 @@ export default function Button({
     []
   );
 
-  let extraStyles;
+  let extraStyles,
+    iconColor;
   switch (type) {
     case BTN_DANGER:
       extraStyles = { btn: styles.btnDanger, text: styles.dangerText };
+      iconColor = iosElse(coolDanger, 'white');
       break;
     case BTN_ALTERNATE:
       extraStyles = { btn: styles.btnAlternate, text: styles.altText };
+      iconColor = iosElse(coolAlternate, 'white');
       break;
     default:
       extraStyles = {};
+      iconColor = iosElse(coolAction, 'white');
   }
 
   if (flex) {
@@ -49,7 +55,13 @@ export default function Button({
     <TouchableOpacity
       style={[styles.btn, extraStyles.btn].concat(applyBorderStyles)}
       onPress={onPress}>
-      <Text style={[styles.centerText, extraStyles.text]}>{text}</Text>
+      { typeof text === 'string' && <Text style={[styles.centerText, extraStyles.text]}>{text}</Text>}
+      { typeof icon === 'string' &&
+        <Ionicons
+          style={styles.icon}
+          name={icon}
+          size={30}
+          color={iconColor} />}
     </TouchableOpacity>
   );
 }
@@ -57,12 +69,17 @@ export default function Button({
 
 const borderRadius = iosElse(16, 0);
 const styles = StyleSheet.create({
+  icon: {
+    alignSelf: 'center'
+  },
   centerText: {
     textAlign: 'center',
-    color: iosElse(coolAction, 'white')
+    color: iosElse(coolAction, 'white'),
+    fontSize: 15,
+    fontWeight: '700'
   },
   btn: {
-    padding: 12,
+    padding: 10,
     flex: 1,
     borderWidth: 2,
     borderRightWidth: 1,

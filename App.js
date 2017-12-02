@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import MainView from './components/MainView';
 import StatusBar from './components/StatusBar';
 
+function getRandomId() {
+  return Math.random() * 1000000 + '___' + Date.now();
+}
 
 const mockState = {
   decks: [
@@ -39,16 +42,51 @@ export default class App extends React.Component {
   }
 
   saveDeckAsync = (title) => {
-    const uuid = Math.random() * 1000000 + '___';
+    const id = getRandomId();
     return new Promise((resolve, reject) => {
       this.setState(state => {
         return {
-          ...state,
           decks: state.decks.concat([ {id: uuid, title} ])
         }
       });
 
-      resolve(uuid);
+      resolve(id);
+    });
+  }
+
+  saveCardAsync = ({deckId, question, answer}) => {
+    const id = getRandomId();
+
+    return new Promise((resolve, reject) => {
+      // first: get the deck from the current state
+      const deck = this.state.decks.find(({id}) => id === deckId);
+
+      if (!deck) {
+        reject('Could not find the deck you are trying to add a card to');
+      }
+
+      const newCardList = (deck.cards || []).concat([{
+        id,
+        question,
+        answer
+      }]);
+
+      this.setState(state => {
+        return {
+          decks: state.decks.map(deck => {
+            if (deck.id === deckId) {
+              return {
+                ...deck,
+                cards: newCardList
+              };
+            }
+
+            return { ...deck };
+          })
+        }
+      });
+
+      resolve(id);
     });
   }
 
@@ -72,10 +110,16 @@ export default class App extends React.Component {
     });
   }
 
+  onError(error) {
+    alert(`An error occured ${String(error)}`);
+  }
+
   render() {
     const {
       saveDeckAsync,
+      saveCardAsync,
       removeDeck,
+      onError,
       state: { decks }
     } = this;
 
@@ -84,7 +128,9 @@ export default class App extends React.Component {
         <StatusBar />
         <MainView screenProps={{
            saveDeckAsync,
+           saveCardAsync,
            removeDeck,
+           onError,
            decks
         }} />
       </View>

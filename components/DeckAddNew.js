@@ -11,7 +11,7 @@ class DeckAddNew extends React.Component {
   }
 
   saveDeck = () => {
-    const { screenProps: { goToDeckDetails, saveDeckAsync }, navigation } = this.props;
+    const { screenProps: { goToDeckDetails, saveDeckAsync, onError }, navigation } = this.props;
     const { deckTitle } = this.state;
 
     // reset the state
@@ -21,7 +21,7 @@ class DeckAddNew extends React.Component {
     navigation.dispatch(NavigationActions.back({ key: 'DeckAddNew' }));
 
     //then make sure to save it async and go to the result then!
-    saveDeckAsync(deckTitle).then(goToDeckDetails);
+    saveDeckAsync(deckTitle).then(goToDeckDetails).catch(onError);
   }
 
   render() {

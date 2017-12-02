@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center'
   },
+  headline2: {
+    fontSize: 26,
+    fontWeight: '600',
+    textAlign: 'center'
+  },
   text: {
     fontSize: 16,
     color: blackyGrey
