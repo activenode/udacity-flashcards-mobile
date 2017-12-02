@@ -8,6 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 export const BTN_DEFAULT = 'default';
 export const BTN_DANGER = 'danger';
 export const BTN_ALTERNATE = 'alternate';
+export const BTN_ONDARK = 'on_dark';
+export const BTN_ONDARK_SIMPLE = 'on_dark_simple';
 
 export default function Button({
   text,
@@ -38,6 +40,14 @@ export default function Button({
     case BTN_ALTERNATE:
       extraStyles = { btn: styles.btnAlternate, text: styles.altText };
       iconColor = iosElse(coolAlternate, 'white');
+      break;
+    case BTN_ONDARK:
+      extraStyles = { btn: styles.btnOnDark, text: styles.onDarkText };
+      iconColor = 'white';
+      break;
+    case BTN_ONDARK_SIMPLE:
+      extraStyles = { btn: styles.btnOnDarkSimple, text: styles.onDarkText };
+      iconColor = 'white';
       break;
     default:
       extraStyles = {};
@@ -96,6 +106,23 @@ const styles = StyleSheet.create({
   btnAlternate: {
     backgroundColor: iosElse(transparentWhite, coolAlternate),
     borderColor: iosElse(coolAlternate, semiTransparentWhite)
+  },
+  btnOnDark: {
+    backgroundColor: undefined,
+    borderColor: 'white'
+  },
+  btnOnDarkSimple: {
+    backgroundColor: undefined,
+    borderWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderColor: transparentWhite,
+    shadowOpacity: 0,
+    shadowColor: transparentWhite,
+    opacity: 0.6
+  },
+  onDarkText: {
+    color: 'white'
   },
   dangerText: {
     color: iosElse(coolDanger, 'white')

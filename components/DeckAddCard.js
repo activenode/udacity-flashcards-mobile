@@ -23,7 +23,7 @@ class DeckAddCard extends React.Component {
     this.setState({cardQuestion: '', cardAnswer: ''});
 
     //then make sure to save it async and go to detail view again
-    saveCardAsync({deckId, cardQuestion, cardAnswer}).then(() => {
+    saveCardAsync({deckId, question: cardQuestion, answer: cardAnswer}).then(() => {
       navigation.dispatch(NavigationActions.back({ }))
     }).catch(onError);
   }

@@ -3,7 +3,7 @@ import {Text, View, Switch, StyleSheet, TouchableWithoutFeedback} from 'react-na
 import commonStyles from '../utils/common-styles';
 import iosElse from '../utils/ios-else';
 import boxShadows from '../utils/box-shadows';
-import { coolYellow, coolLightYellow } from '../utils/colors';
+import { cardColor, coolLightYellow } from '../utils/colors';
 
 
 class QuizCard extends React.Component {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     padding: 20,
     justifyContent: 'center',
-    backgroundColor: coolYellow,
+    backgroundColor: cardColor,
     borderRadius: iosElse(16, 0),
     borderWidth: 3,
     borderColor: 'rgba(255,255,255,0.3)'
