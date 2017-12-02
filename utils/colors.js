@@ -10,3 +10,4 @@ export const coolDanger = iosElse('#e12518', '#e91e63');
 export const coolAlternate = iosElse('black', '#607d8b');
 export const androidGrey = '#efefef';
 export const statusBarBg = iosElse('#333', coolAction);
+export const coolYellow = '#ffcd32';

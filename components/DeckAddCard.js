@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Button from './Button';
 import { NavigationActions } from 'react-navigation';
-import styles from '../utils/common-styles';
+import commonStyles from '../utils/common-styles';
 
 class DeckAddCard extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -30,23 +30,23 @@ class DeckAddCard extends React.Component {
 
   render() {
     return (
-      <View style={styles.verticalCenteredPaddContainer}>
-        <Text style={styles.headline2}>Question of the Card:</Text>
+      <View style={commonStyles.verticalCenteredPaddContainer}>
+        <Text style={commonStyles.headline2}>Question of the Card:</Text>
         <TextInput
-            style={styles.input}
+            style={commonStyles.input}
             onChangeText={cardQuestion => this.setState({cardQuestion})}
             value={this.state.cardQuestion}
             placeholder='Appears on the front of your card...'
           />
-        <Text style={[styles.headline2, {marginTop: 20}]}>The answer:</Text>
+        <Text style={[commonStyles.headline2, {marginTop: 20}]}>The answer:</Text>
         <TextInput
-          style={styles.input}
+          style={commonStyles.input}
           onChangeText={cardAnswer => this.setState({cardAnswer})}
           value={this.state.cardAnswer}
           placeholder='The backside of the card...'
         />
 
-        <View style={[styles.btnContainer, {marginTop: 40}]}>
+        <View style={[commonStyles.btnContainer, {marginTop: 40}]}>
           {!!(this.state.cardQuestion && this.state.cardAnswer) &&
             <Button
               text='Save this Card'

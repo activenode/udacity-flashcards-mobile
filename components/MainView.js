@@ -5,6 +5,7 @@ import DeckAddCard from './DeckAddCard';
 import { StackNavigator } from 'react-navigation';
 import { statusBarBg } from '../utils/colors';
 import {Text, View} from 'react-native';
+import DeckQuiz from './DeckQuiz';
 
 
 const MainView = StackNavigator({
@@ -18,7 +19,7 @@ const MainView = StackNavigator({
     screen: DeckDetails
   },
   DeckQuiz: {
-    screen: () => <View><Text> i bims addcard </Text></View>
+    screen: DeckQuiz
   },
   DeckAddCard: {
     screen: DeckAddCard

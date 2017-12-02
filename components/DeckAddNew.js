@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Button from './Button';
 import { NavigationActions } from 'react-navigation';
-import styles from '../utils/common-styles';
+import commonStyles from '../utils/common-styles';
 
 
 class DeckAddNew extends React.Component {
@@ -26,14 +26,14 @@ class DeckAddNew extends React.Component {
 
   render() {
     return (
-      <View style={styles.verticalCenteredPaddContainer}>
-        <Text style={styles.headline}>Enter the name of your new Deck:</Text>
+      <View style={commonStyles.verticalCenteredPaddContainer}>
+        <Text style={commonStyles.headline}>Enter the name of your new Deck:</Text>
         <TextInput
-            style={styles.input}
+            style={commonStyles.input}
             onChangeText={(deckTitle) => this.setState({deckTitle})}
             value={this.state.deckTitle}
           />
-        <View style={styles.btnContainer}>
+        <View style={commonStyles.btnContainer}>
           {!!this.state.deckTitle && <Button
               text='Save'
               onPress={this.saveDeck}

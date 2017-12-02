@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: iosElse(14, 16),
     ...boxShadows
+  },
+  infoContainer: {
+    backgroundColor: '#bbbbbb'
   }
 });
 
