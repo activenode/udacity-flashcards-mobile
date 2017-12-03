@@ -5,6 +5,7 @@ import { blackyGrey, greyWhite, androidGrey } from '../utils/colors';
 import Button, { BTN_DANGER } from './Button';
 import boxShadows from '../utils/box-shadows';
 import iosElse from '../utils/ios-else';
+import DeckListNoResults from './DeckListNoResults';
 
 export default function DeckList({
   screenProps: {
@@ -44,7 +45,9 @@ export default function DeckList({
             </View>
           </View>
         )
-      }} />
+      }} />}
+      {decks.length === 0 &&
+        <DeckListNoResults />}
     </View>);
 }
 

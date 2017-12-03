@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StatusBar as NativeStatusBar, StyleSheet } from 'react-native';
 import { Constants } from 'expo';
-import {statusBarBg} from '../utils/colors';
+import { statusBarBg } from '../utils/colors';
 
 
 export default function StatusBar() {
