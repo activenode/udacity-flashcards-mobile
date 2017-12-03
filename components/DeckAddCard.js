@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import Button from './Button';
 import { NavigationActions } from 'react-navigation';
@@ -37,33 +38,38 @@ class DeckAddCard extends React.Component {
 
   render() {
     return (
-      <View style={commonStyles.verticalCenteredPaddContainer}>
-        <Text style={commonStyles.headline2}>Question of the Card:</Text>
-        <TextInput
-            style={commonStyles.input}
-            onChangeText={cardQuestion => this.setState({cardQuestion})}
-            value={this.state.cardQuestion}
-            placeholder='Appears on the front of your card...'
-          />
-        <Text style={[commonStyles.headline2, {marginTop: 20}]}>The answer:</Text>
-        <TextInput
-          style={commonStyles.input}
-          onChangeText={cardAnswer => this.setState({cardAnswer})}
-          value={this.state.cardAnswer}
-          placeholder='The backside of the card...'
-        />
+      <KeyboardAvoidingView
+        behavior='position'
+        contentContainerStyle={{ paddingTop: 100 }}
+        style={commonStyles.verticalCenteredPaddContainer}>
+          <ScrollView>
+            <Text style={commonStyles.headline2}>Question of the Card:</Text>
+            <TextInput
+                style={commonStyles.input}
+                onChangeText={cardQuestion => this.setState({cardQuestion})}
+                value={this.state.cardQuestion}
+                placeholder='Appears on the front of your card...'
+              />
+            <Text style={[commonStyles.headline2, {marginTop: 20}]}>The answer:</Text>
+            <TextInput
+              style={commonStyles.input}
+              onChangeText={cardAnswer => this.setState({cardAnswer})}
+              value={this.state.cardAnswer}
+              placeholder='The backside of the card...'
+            />
 
-        <View style={[commonStyles.btnContainer, {marginTop: 40}]}>
-          {!!(this.state.cardQuestion && this.state.cardAnswer) &&
-            <Button
-              text='Save this Card'
-              onPress={this.saveCard}
-              roundedBorders={{
-                topLeft: true, topRight: true, bottomRight: true, bottomLeft: true
-              }}
-              />}
-        </View>
-      </View>
+            <View style={[commonStyles.btnContainer, {marginTop: 40}]}>
+              {!!(this.state.cardQuestion && this.state.cardAnswer) &&
+                <Button
+                  text='Save this Card'
+                  onPress={this.saveCard}
+                  roundedBorders={{
+                    topLeft: true, topRight: true, bottomRight: true, bottomLeft: true
+                  }}
+                  />}
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       );
   }
 }

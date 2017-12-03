@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  KeyboardAvoidingView,
   TouchableOpacity
 } from 'react-native';
 import Button from './Button';
