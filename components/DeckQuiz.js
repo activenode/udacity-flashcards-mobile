@@ -1,5 +1,11 @@
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Animated
+} from 'react-native';
 import { lightGrey, coolDanger, coolGreen, transparentWhite , darkGrey} from '../utils/colors';
 import commonStyles from '../utils/common-styles';
 import QuizCard from './QuizCard';
@@ -8,6 +14,10 @@ import iosElse from '../utils/ios-else';
 import shuffle from 'shuffle-array';
 
 class DeckQuiz extends React.Component {
+  state = {
+    cardBounceValue: new Animated.Value(1)
+  }
+
   resetState() {
     this.setState({
       deckTitle: null,
@@ -44,6 +54,18 @@ class DeckQuiz extends React.Component {
       deckTitle: params.deck.title,
       cards: shuffle(Array.isArray(deck.cards) ? deck.cards : [])
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if ((prevState.cards.length !== this.state.cards.length
+        || prevState.currentCardIndex !== this.state.currentCardIndex)
+      && this.state.currentCardIndex < this.state.cards.length) {
+        // let's animate to indicate that there is a new card
+        Animated.sequence([
+          Animated.timing(this.state.cardBounceValue, { duration: 150, toValue: 1.07}),
+          Animated.spring(this.state.cardBounceValue, { toValue: 1, friction: 4})
+        ]).start();
+      }
   }
 
   restartQuiz = () => {
@@ -92,7 +114,11 @@ class DeckQuiz extends React.Component {
         </View>
         <View style={commonStyles.verticalCenteredPaddContainer}>
           {this.state.currentCardIndex < this.state.cards.length &&
-            <QuizCard question={currentCard.question} answer={currentCard.answer} />}
+            <Animated.View style={{transform: [{ scale: this.state.cardBounceValue}]}}>
+              <QuizCard
+                question={currentCard.question}
+                answer={currentCard.answer} />
+            </Animated.View>}
         </View>
 
         <Text style={[commonStyles.centerText, styles.infoText]}>Tap on the card to see the answer</Text>
