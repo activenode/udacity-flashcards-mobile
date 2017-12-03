@@ -7,12 +7,17 @@ import boxShadows from '../utils/box-shadows';
 import iosElse from '../utils/ios-else';
 import DeckListNoResults from './DeckListNoResults';
 
+const goToAddDeck = (navigation) => {
+  navigation.navigate('DeckAddNew');
+}
+
 export default function DeckList({
   screenProps: {
     decks = [],
     removeDeck,
     goToDeckDetails
-  }
+  },
+  navigation
 }) {
   return (
   <View style={styles.container}>
@@ -47,13 +52,14 @@ export default function DeckList({
         )
       }} />}
       {decks.length === 0 &&
-        <DeckListNoResults />}
+        <DeckListNoResults onTapNewDeck={() => goToAddDeck(navigation)} />}
     </View>);
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 20
+    paddingBottom: 20,
+    flex: 1
   },
   item: {
     flex: 1,

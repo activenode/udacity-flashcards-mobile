@@ -28,7 +28,6 @@ export function getDecks() {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
     .then(JSON.parse)
     .then(data => {
-      console.log('all decks', data);
       return Array.isArray(data) ? data : [];
     })
     // we want to avoid the app breaking.

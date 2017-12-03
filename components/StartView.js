@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, Platform } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, NavigationActions } from 'react-navigation';
 import DeckList from './DeckList';
 import DeckAddNew from './DeckAddNew';
 import { coolAction , greyWhite} from '../utils/colors';
@@ -22,6 +22,7 @@ const Tabs = TabNavigator({
     }
   }
 },{
+  initialRouteName: 'DeckList',
   navigationOptions: {
     header: null
   },
@@ -60,10 +61,15 @@ export default class StartView extends React.Component {
     );
   }
 
+
+
   render() {
     const { screenProps } = this.props;
     return (<KeyboardAvoidingView behavior='padding' style={{flex: 1}}>
-      <Tabs screenProps={{...screenProps, goToDeckDetails: this.goToDeckDetails}} />
+      <Tabs screenProps={{
+        ...screenProps,
+        goToDeckDetails: this.goToDeckDetails
+        }} />
     </KeyboardAvoidingView>);
   }
 }

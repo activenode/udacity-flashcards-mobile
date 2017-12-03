@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center'
   },
+  headline3: {
+    fontSize: 15,
+    fontWeight: '500',
+    textAlign: 'center'
+  },
   text: {
     fontSize: 16,
     color: blackyGrey
