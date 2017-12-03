@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Switch, StyleSheet, Animated } from 'react-native';
 import commonStyles from '../utils/common-styles';
-import { blackyGrey, semiTransparentWhite , highlightGreen, coolGreen} from '../utils/colors';
+import { blackyGrey, semiTransparentWhite , highlightGreen, coolGreen } from '../utils/colors';
 import Button, { BTN_ONDARK, BTN_ONDARK_SIMPLE } from './Button';
 
 

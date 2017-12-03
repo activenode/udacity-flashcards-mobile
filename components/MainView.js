@@ -4,7 +4,7 @@ import DeckDetails from './DeckDetails';
 import DeckAddCard from './DeckAddCard';
 import { StackNavigator } from 'react-navigation';
 import { statusBarBg } from '../utils/colors';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 import DeckQuiz from './DeckQuiz';
 
 

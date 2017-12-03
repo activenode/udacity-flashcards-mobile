@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Animated
 } from 'react-native';
-import { lightGrey, coolDanger, coolGreen, transparentWhite , darkGrey} from '../utils/colors';
+import { lightGrey, coolDanger, coolGreen, transparentWhite , darkGrey } from '../utils/colors';
 import commonStyles from '../utils/common-styles';
 import QuizCard from './QuizCard';
 import QuizSummary from './QuizSummary';

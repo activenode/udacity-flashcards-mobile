@@ -1,5 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from 'react-native';
 import Button from './Button';
 import { NavigationActions } from 'react-navigation';
 import commonStyles from '../utils/common-styles';

@@ -15,7 +15,7 @@ export default function DeckList({
 }) {
   return (
   <View style={styles.container}>
-    <FlatList
+    {decks.length > 0 && <FlatList
       data={decks.map(deck => {
         return {key: deck.id, ...deck};
       })}

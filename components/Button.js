@@ -1,6 +1,17 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {coolAction, coolDanger, coolAlternate, transparentWhite, semiTransparentWhite} from '../utils/colors';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';
+import {
+  coolAction,
+  coolDanger,
+  coolAlternate,
+  transparentWhite,
+  semiTransparentWhite
+} from '../utils/colors';
 import iosElse from '../utils/ios-else';
 import boxShadows from '../utils/box-shadows';
 import { Ionicons } from '@expo/vector-icons';
