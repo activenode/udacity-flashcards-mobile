@@ -46,7 +46,7 @@ export default class App extends React.Component {
     return new Promise((resolve, reject) => {
       this.setState(state => {
         return {
-          decks: state.decks.concat([ {id: uuid, title} ])
+          decks: state.decks.concat([ {id, title} ])
         }
       });
 

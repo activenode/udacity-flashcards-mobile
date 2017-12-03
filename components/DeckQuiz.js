@@ -46,6 +46,19 @@ class DeckQuiz extends React.Component {
     });
   }
 
+  restartQuiz = () => {
+    this.setState(state => ({
+      ...state,
+      currentCardIndex: 0,
+      correctAnswersCount: 0,
+      cards: shuffle(state.cards)
+    }));
+  }
+
+  backToDeck = () => {
+    this.props.navigation.goBack();
+  }
+
   render() {
     if (!this.state.cards || this.state.cards.length === 0) {
       return (
@@ -64,8 +77,8 @@ class DeckQuiz extends React.Component {
           deckTitle={this.state.deckTitle}
           totalCardsCount={this.state.cards.length}
           correctCardsCount={this.state.correctAnswersCount}
-          onRestartQuiz={() => alert('RESTART NOW')}
-          onBackToDeck={() => alert('BACK TO DECK NOW')}
+          onRestartQuiz={this.restartQuiz}
+          onBackToDeck={this.backToDeck}
           />
       );
     }
