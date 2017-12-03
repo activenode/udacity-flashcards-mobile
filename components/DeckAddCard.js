@@ -38,11 +38,10 @@ class DeckAddCard extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior='position'
-        contentContainerStyle={{ paddingTop: 100 }}
-        style={commonStyles.verticalCenteredPaddContainer}>
-          <ScrollView>
+      <View style={commonStyles.verticalCenteredPaddContainer}>
+        <KeyboardAvoidingView
+          behavior='position'
+          style={{flex: 1, justifyContent: 'center'}}>
             <Text style={commonStyles.headline2}>Question of the Card:</Text>
             <TextInput
                 style={commonStyles.input}
@@ -68,8 +67,8 @@ class DeckAddCard extends React.Component {
                   }}
                   />}
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </View>
       );
   }
 }
