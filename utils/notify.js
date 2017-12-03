@@ -11,11 +11,10 @@ export function setLocalNotifications() {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({status}) => {
             if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationsAsync();
-
               let tomorrow = new Date();
               tomorrow.setDate(tomorrow.getDate() + 1);
               tomorrow.setHours(18);
+              tomorrow.setSeconds(0);
               tomorrow.setMinutes(0);
 
               Notifications.scheduleLocalNotificationAsync(
