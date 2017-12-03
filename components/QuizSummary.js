@@ -3,6 +3,7 @@ import { Text, View, Switch, StyleSheet, Animated } from 'react-native';
 import commonStyles from '../utils/common-styles';
 import { blackyGrey, semiTransparentWhite , highlightGreen, coolGreen } from '../utils/colors';
 import Button, { BTN_ONDARK, BTN_ONDARK_SIMPLE } from './Button';
+import { scheduleNextNotificationTomorrow } from '../utils/notify';
 
 
 export default class QuizSummary extends React.Component {
@@ -15,6 +16,8 @@ export default class QuizSummary extends React.Component {
   }
 
   componentDidMount() {
+    scheduleNextNotificationTomorrow();
+
     Animated.timing(this.state.fadeResultsValue, {
       toValue: 1,
       duration: 700

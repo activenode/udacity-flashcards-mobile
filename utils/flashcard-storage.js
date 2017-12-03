@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  AsyncStorage
-} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import uuid from 'uuid';
 
 const FLASHCARD_STORAGE_KEY = 'FLASHCARD_STORAGE_KEY';

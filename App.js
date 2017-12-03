@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import MainView from './components/MainView';
 import StatusBar from './components/StatusBar';
 import * as FlashCardStorage from './utils/flashcard-storage';
+import { setLocalNotifications } from './utils/notify';
 
 
 export default class App extends React.Component {
@@ -15,6 +16,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    setLocalNotifications();
     this.loadDecksFromStorage();
   }
 
