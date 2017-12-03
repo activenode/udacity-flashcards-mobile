@@ -7,39 +7,8 @@ function getRandomId() {
   return Math.random() * 1000000 + '___' + Date.now();
 }
 
-const mockState = {
-  decks: [
-    {
-      id: 'some-id',
-      title: 'Deck Title 1',
-      cards: undefined
-    },
-    {
-      id: 'some-id-2',
-      title: 'Deck Title 2',
-      cards: null
-    },
-    {
-      id: 'some-id-3',
-      title: 'Deck Title 3',
-      cards: []
-    },
-    {
-      id: 'some-id-4',
-      title: 'Deck Title 4',
-      cards: [{
-        id: 'some-card-id-1',
-        question: 'Front of Card',
-        answer: 'Back of Card'
-      }]
-    }
-  ]
-}
-
 export default class App extends React.Component {
-  state = {
-    ...mockState
-  }
+  state = { decks: [] }
 
   saveDeckAsync = (title) => {
     const id = getRandomId();
